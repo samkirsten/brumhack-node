@@ -15,10 +15,17 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
+        function getCookie(name) {
+            var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
+            var result = regexp.exec(document.cookie);
+            return (result === null) ? null : result[1];
+        }
+        console.log(getCookie("name"));
+        var name = getCookie("name");
+
         var currentPlayers = [];
         var currentState = [];
         var socket = io();
-        var group;
         window.onload = function(e){
         }
         function doFunction(){
@@ -54,7 +61,7 @@
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8 text-center">
-                <h2>You are hosting a game.</h2>
+                <h1 id="groupName">You are hosting a game.</h1>
                 <button type="button" class="btn btn-primary" onclick="doFunction()">Start Game</button>
                 <h3>Scoreboard</h3>
                 <div id="table_div">
@@ -68,6 +75,7 @@
 </div>
 
 <script>
+    document.getElementById("groupName").innerHTML = name;
     socket.on('reload', function (players, playing) {
         currentPlayers = players;
         currentState = playing;

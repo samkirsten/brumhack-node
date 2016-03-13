@@ -15,16 +15,6 @@ var jsonParser = bodyParser.json()
 
 app.use('/public', express.static('public'));
 
-/**
-app.get('/client', function(req, res){
-    //var name = req.body.name;
-    //var group = req.body.group;
-    //console.log("post received: %s %s", name, group);
-    //res.send(name + ' ' + group);
-    res.sendfile('client.html');
-});
-**/
-
 app.get('/client',function(req,res){
     console.log("test");
     res.sendfile("client.html");
@@ -40,6 +30,13 @@ app.post('/client', function (req, res) {
 
 app.get('/host', function(req, res){
     res.sendfile('host.html');
+});
+
+app.post('/host', function (req, res) {
+    var name = req.body.name;
+    var group = req.body.group;
+    console.log(group + name);
+    res.sendfile('host.html', { name: req.body.name, group: req.body.group});
 });
 
 app.get('/', function(req, res){

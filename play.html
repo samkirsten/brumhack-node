@@ -15,49 +15,17 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
+        var switchValue = 'group';
         function ajaxPost() {
-            var namevalue = document.getElementById("name").value;
-            var groupnamevalue = document.getElementById("group").value;
+            var value = document.getElementById(switchValue).value;
             document.cookie =
-                    "name=" + encodeURIComponent(namevalue) +
-                    "; group=" + encodeURIComponent(groupnamevalue);
+                    "name=" + encodeURIComponent(value);
         }
-        /**
-        function ajaxPostl() {
-            var clientString = "client";
-            var hostString = "host";
-            var mypostrequest = new ajaxRequest()
-            mypostrequest.onreadystatechange = function () {
-                if (mypostrequest.readyState == 4) {
-                    if (mypostrequest.status == 200 || window.location.href.indexOf("http") == -1) {
-                        document.getElementById("result").innerHTML = mypostrequest.responseText
-                    }
-                    else {
-                        alert("An error has occured making the request")
-                    }
-                }
-            }
-            var namevalue = encodeURIComponent(document.getElementById("name").value)
-            var groupnamevalue = encodeURIComponent(document.getElementById("group").value)
-            var parameters = "inputName=" + namevalue + "&inputCode=" + groupnamevalue
-            if($('#host input:radio:checked').val()){
-                mypostrequest.open("POST", "http://188.166.168.197:3000/"+hostString, true)
-                alert("test");
-                mypostrequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-                mypostrequest.send(parameters)
-            }else if($('#join input:radio:checked').val()){
-                mypostrequest.open("POST", "http://188.166.168.197:3000/"+clientString, true)
-                alert("test");
-                mypostrequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-                mypostrequest.send(parameters)
-            }
-
-        }
-**/
     </script>
 </head>
 <body>
 <!--Begin header-->
+<div class="container">
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -81,7 +49,7 @@
 </div>
 <!--End header->
 <!--Begin content-->
-<div class="container">
+
     <div class="row">
         <div class="col-sm-2">
         </div>
@@ -90,8 +58,20 @@
                 <h2>Play</h2>
                 <h3>Fill in a few details and press Done to jump straight in!</h3>
             </div>
+            <script type="text/javascript">
+                function urlSelect(a){
+                    document.getElementById("setupForm").action=a;
+                    if (a == 'client'){
+                        switchValue = 'name';
+                    }
+                    else if (a == 'host'){
+                        switchValue = 'group';
+                    }
+                }
+            </script>
+
             <div id="play_info">
-                <form action="client" method="post">
+                <form id="setupForm" action="host" method="post">
                     <fieldset class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Example: John Smith">
@@ -103,13 +83,13 @@
                     </fieldset>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="optionsRadios" id="host" value="value1" checked>
+                            <input type="radio" name="optionsRadios" id="host" value="value1" onclick="urlSelect('host')" checked>
                             Host New Game
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="optionsRadios" id="join" value="value2">
+                            <input type="radio" name="optionsRadios" id="join" value="value2" onclick="urlSelect('client')">
                             Join Existing Game
                         </label>
                     </div>
@@ -120,7 +100,7 @@
         <div class="col-sm-2">
         </div>
     </div>
-</div>
+
 <!--End content-->
 <!--Begin footer-->
 <div class="navbar navbar-inverse" role="navigation">
@@ -129,6 +109,7 @@
             <p>Ⓒ Sam Kirsten, Andrew Wilson-Jones 2016.</p>
         </div>
     </div>
+</div>
 </div>
 <!--End footer-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

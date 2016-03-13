@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hosting</title>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+
+
+        document.write($_POST["test"]);
+    </script>
+    <script>
+        var currentPlayers = [];
+        var currentState = [];
+        var socket = io();
+        var group;
+        window.onload = function(e){
+
+        }
+        function doFunction(){
+            socket.emit('settings', group);
+        }
+
+        socket.on('reload', function (players, playing) {
+           currentPlayers = players;
+           currentState = playing;
+           console.log(currentPlayers.toString());
+           console.log(currentState.toString());
+        });
+
+
+    </script>
+
+
+</head>
+<body>
+
+<h1>Hosting</h1>
+
+<input id="clickMe" type="button" value="clickme" onclick="doFunction();" />
+<script>
+    //- Using a function pointer:
+    document.getElementById("clickMe").onclick = doFunction;
+
+    //- Using and anonymous function:
+    var el = document.getElementById("clickMe");
+    if (el.addEventListener)
+        el.addEventListener("click", doFunction, false);
+    else if (el.attachEvent)
+        el.attachEvent('onclick', doFunction);
+</script>
+</body>
+</html>

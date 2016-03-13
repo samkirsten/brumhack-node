@@ -1,0 +1,10 @@
+{
+  "name": "brumhack-joust",
+  "version": "0.0.1",
+  "description": "brumhack project",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.10.2",
+    "socket.io": "^1.4.5"
+  }
+}

@@ -1,0 +1,114 @@
+/*Initial render for screen sizes 240px-319px */
+body{
+    background-color: lightgrey;
+}
+.navbar-default{
+    background-color: #44FF00;
+    border-color: transparent;
+}
+.navbar-default .navbar-brand{
+    font-family: Bangers;
+    font-size: 32px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    color: white;
+}
+.navbar-default .navbar-brand:hover{
+    color: grey;
+}
+.navbar-default .navbar-toggle, .navbar-default .navbar-toggle:focus{
+    background-color: transparent;
+    border-radius: 0px;
+    border-color: transparent;
+    margin-top:18px;
+}
+.navbar-default .navbar-toggle:hover{
+    background-color: grey;
+}
+.navbar-default .navbar-toggle .icon-bar{
+    background-color: white;
+}
+.navbar-default .navbar-collapse .nav > li >a {
+    color: white;
+    font-size: 20px;
+    font-family: Raleway;
+}
+.navbar-default .navbar-collapse .nav > li >a:hover{
+   background-color: grey;
+}
+.navbar-fixed-bottom {
+    background-color: grey;
+}
+.container .jumbotron{
+    margin-top:90px;
+}
+.container .jumbotron > p{
+    font-family: Raleway;
+    font-size: 15px;
+}
+.container .jumbotron > h1{
+    font-family: Bangers;
+    font-size: 20px;
+}
+.container .jumbotron > h2{
+    font-family: Raleway;
+    font-size: 15px;
+}
+#how_to_play > h2{
+    font-family: Raleway;
+    font-size: 20px;
+    text-align: center;
+}
+#how_to_play > p {
+    font-family: Raleway;
+    font-size: 15px;
+    text-align: center;
+}
+#dev_by > p{
+    font-family: Raleway;
+    font-size: 15px;
+    text-align: center;
+}
+.navbar .container .navbar-text{
+    color:white;
+    margin-bottom: -5px;
+}
+#play_info{
+    margin-top:95px;
+    margin-bottom: 10px;
+}
+#play_info{
+    text-align: center;
+}
+.btn-primary{
+    background-color: #44FF00;
+    border-color: transparent;
+}
+.btn-primary:hover{
+    background-color: grey;
+    border-color: transparent;
+}
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}

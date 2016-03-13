@@ -2,6 +2,11 @@
 body{
     background-color: lightgrey;
 }
+
+h1{
+    font-family: Bangers;
+}
+
 .navbar-default{
     background-color: #44FF00;
     border-color: transparent;
@@ -28,6 +33,7 @@ body{
 .navbar-default .navbar-toggle .icon-bar{
     background-color: white;
 }
+
 .navbar-default .navbar-collapse .nav > li >a {
     color: white;
     font-size: 20px;

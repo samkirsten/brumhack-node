@@ -11,15 +11,30 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+var jsonParser = bodyParser.json()
+
 app.use('/public', express.static('public'));
 
-
+/**
 app.get('/client', function(req, res){
     //var name = req.body.name;
     //var group = req.body.group;
     //console.log("post received: %s %s", name, group);
     //res.send(name + ' ' + group);
     res.sendfile('client.html');
+});
+**/
+
+app.get('/client',function(req,res){
+    console.log("test");
+    res.sendfile("client.html");
+});
+
+app.post('/client', function (req, res) {
+    var name = req.body.name;
+    var group = req.body.group;
+    console.log(group + name);
+    res.sendfile('client.html', { name: req.body.name, group: req.body.group});
 });
 
 

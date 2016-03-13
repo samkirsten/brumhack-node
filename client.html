@@ -12,6 +12,9 @@
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { background: #eee; }
     </style>
+    <script>
+
+    </script>
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
     <link href="public/css/custom.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
@@ -21,6 +24,17 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+        function getCookie(name) {
+            var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
+            var result = regexp.exec(document.cookie);
+            return (result === null) ? null : result[1];
+        }
+        console.log(getCookie("name"));
+        var name = getCookie("name");
+        var group = getCookie("group");
+    </script>
+
 </head>
 <body>
 
@@ -47,16 +61,19 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-2">
-        </div>
-        <div class="col-sm-8">
-            <div id="play_info">
-                <h1 id="gameName">Welcome!</h1>
+    <div class="jumbotron">
 
+<div class="row">
+        <div class="col-sm-12">
+            <div id="play_info">
+                <h1 id="gameName" class="gameName">Welcome!</h1>
+
+
+                <!--
                 <h4 id="xlabel">No X Movement Detected</h4>
                 <h4 id="ylabel">No Y Movement Detected</h4>
                 <h4 id="zlabel">No Z Movement Detected</h4>
+                -->
 
                 <div class="row">
                     <div class="col-md-12">
@@ -65,8 +82,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
-        </div>
+
+    </div>
     </div>
 </div>
 
@@ -82,9 +99,10 @@
 
 
 <script>
-    var name = "Sam";
-    var group = "Brumhack";
+    //var name = "Sam";
+    //var group = "Brumhack";
     document.getElementById("gameName").innerHTML = 'Player: ' + name;
+   // document.getElementById("gameGroup").innerHTML = 'Game: ' + group;
 </script>
 
 <script>
@@ -95,7 +113,7 @@
 
     function registerPlayer(){
         console.log(name);
-        socket.emit('name', 'Sam');
+        socket.emit('name', name);
         //readyForLaunch();
     }
 
@@ -112,11 +130,12 @@
 
     function readyForLaunch(){
         var playing = false;
-        var counter = 5;
+        var counter = 6;
             (function move() {
-                document.getElementById("countdown").innerHTML = counter;
-                if (counter > 0) {
+
+                if (counter > 1) {
                     counter--;
+                    document.getElementById("countdown").innerHTML = counter;
                     setTimeout(move, 1000);
                 }
                 else{
@@ -180,9 +199,9 @@
             }
 
             setInterval(function () {
-                document.getElementById("xlabel").innerHTML = "X: " + ax;
-                document.getElementById("ylabel").innerHTML = "Y: " + ay;
-                document.getElementById("zlabel").innerHTML = "Z: " + az;
+                //document.getElementById("xlabel").innerHTML = "X: " + ax;
+                //document.getElementById("ylabel").innerHTML = "Y: " + ay;
+                //document.getElementById("zlabel").innerHTML = "Z: " + az;
             }, delay);
         }
     }

@@ -80,12 +80,8 @@ h1{
     margin-bottom: -5px;
 }
 #play_info{
-    margin-top:95px;
     margin-bottom: 10px;
-}
-#play_info{
     text-align: center;
-}
 .btn-primary{
     background-color: #44FF00;
     border-color: transparent;
@@ -93,6 +89,13 @@ h1{
 .btn-primary:hover{
     background-color: grey;
     border-color: transparent;
+}
+.container .jumbotron .row .col-sm-8 > h2{
+    font-family: Raleway;
+}
+.container .jumbotron .row .col-sm-8 > h3{
+    font-family: Bangers;
+    font-size: 40px;
 }
 /* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {

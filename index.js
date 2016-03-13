@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use('/public', express.static('public'));
 
-/**
+
 app.get('/client', function(req, res){
     //var name = req.body.name;
     //var group = req.body.group;
@@ -21,11 +21,7 @@ app.get('/client', function(req, res){
     //res.send(name + ' ' + group);
     res.sendfile('client.html');
 });
-**/
 
-app.post('/client', function(req, res) {
-    res.send('You sent the name "' + req.body.name + '".');
-});
 
 app.get('/host', function(req, res){
     res.sendfile('host.html');
@@ -62,6 +58,7 @@ io.on('connection', function(socket){
     socket.on('status', function(msg){
         var player = players.indexOf(msg);
         playing[player] = 0;
+        io.emit('reload', players, playing, { for: 'everyone' });
     });
     socket.on('launch', function(){
         console.log('Message from Host');

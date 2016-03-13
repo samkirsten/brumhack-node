@@ -14,34 +14,17 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript">
-
-
-
-    </script>
     <script>
         var currentPlayers = [];
         var currentState = [];
         var socket = io();
         var group;
         window.onload = function(e){
-
         }
         function doFunction(){
             socket.emit('launch', group);
         }
-
-        socket.on('reload', function (players, playing) {
-           currentPlayers = players;
-           currentState = playing;
-           console.log(currentPlayers.toString());
-           console.log(currentState.toString());
-        });
-
-
     </script>
-
-
 </head>
 <body>
 
@@ -66,20 +49,49 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6">
+                <h2>You are hosting a game.</h2>
+                <button type="button" class="btn btn-primary" onclick="doFunction()">Start Game</button>
+                <h3>Scoreboard</h3>
+                <div id="table_div">
+                    <!--Table goes here-->
+                </div>
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>Hosting</h1>
-
-<input id="clickMe" type="button" value="clickme" onclick="doFunction();" />
 <script>
-    //- Using a function pointer:
-    document.getElementById("clickMe").onclick = doFunction;
+    socket.on('reload', function (players, playing) {
+        currentPlayers = players;
+        currentState = playing;
+        console.log(currentPlayers.toString());
+        console.log(currentState.toString());
 
-    //- Using and anonymous function:
-    var el = document.getElementById("clickMe");
-    if (el.addEventListener)
-        el.addEventListener("click", doFunction, false);
-    else if (el.attachEvent)
-        el.attachEvent('onclick', doFunction);
+        var table = '<table class="table"><thead><tr><th>Name</th><th>State</th></tr></thead><tbody>';
+        var tableadd = '';
+        for(i=0; i<currentState.length; i++){
+            if(currentState[i]==0){
+                tableadd = tableadd+'<tr class="danger"><td>'+currentPlayers[i]+'</td><td>Lose</td></tr>';
+            } else if(currentState[i]==1){
+                tableadd = tableadd+'<tr class="info"><td>'+currentPlayers[i]+'</td><td>In Game...</td></tr>';
+            } else if(currentState[i]==2){
+                tableadd = tableadd+'<tr class="success"><td>'+currentPlayers[i]+'</td><td>Win!</td></tr>';
+            }else{
+                //do nothing, ie undefined
+            }
+        }
+        tableadd = tableadd+'</tbody></table>'
+        table = table+tableadd;
+        document.getElementById("table_div").innerHTML = table;
+    });
 </script>
 </body>
 </html>

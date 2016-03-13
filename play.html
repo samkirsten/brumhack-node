@@ -15,7 +15,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-        function ajaxPost() {
+        function ajaxPostl() {
             var clientString = "client";
             var hostString = "host";
             var mypostrequest = new ajaxRequest()
@@ -78,14 +78,14 @@
         </div>
         <div class="col-sm-8">
             <div id="play_info">
-                <form>
+                <form action="play" method="post">
                     <fieldset class="form-group">
                         <label for="name">Your Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Example: John Smith">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Example: John Smith">
                     </fieldset>
                     <fieldset class="form-group">
                         <label for="name">Group Name</label>
-                        <input type="text" class="form-control" id="group" placeholder="Example: A Spiffing Group">
+                        <input type="text" class="form-control" id="group" name="group" placeholder="Example: A Spiffing Group">
                         <small>Please note that Group Names are case-sensitive</small>
                     </fieldset>
                     <div class="radio">

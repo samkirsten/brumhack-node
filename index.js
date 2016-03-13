@@ -13,11 +13,18 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use('/public', express.static('public'));
 
+/**
 app.get('/client', function(req, res){
-    //var name = req.body.inputName;
-    //var group = req.body.inputCode;
+    //var name = req.body.name;
+    //var group = req.body.group;
+    //console.log("post received: %s %s", name, group);
     //res.send(name + ' ' + group);
     res.sendfile('client.html');
+});
+**/
+
+app.post('/client', function(req, res) {
+    res.send('You sent the name "' + req.body.name + '".');
 });
 
 app.get('/host', function(req, res){

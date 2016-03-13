@@ -15,11 +15,15 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-        var switchValue = 'group';
+        //var switchValue = 'group';
+        function setCookie(cname, cgroup) {
+            document.cookie = 'pername2' + "=" + cgroup;
+            document.cookie = 'pername1' + "=" + cname;
+        }
         function ajaxPost() {
-            var value = document.getElementById(switchValue).value;
-            document.cookie =
-                    "name=" + encodeURIComponent(value);
+            var nameValue = document.getElementById('name').value;
+            var groupValue = document.getElementById('group').value;
+            setCookie(nameValue, groupValue);
         }
     </script>
 </head>
@@ -71,7 +75,7 @@
             </script>
 
             <div id="play_info">
-                <form id="setupForm" action="host" method="post">
+                <form id="setupForm" action="host" method="get">
                     <fieldset class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Example: John Smith">

@@ -25,14 +25,22 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-        function getCookie(name) {
-            var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
-            var result = regexp.exec(document.cookie);
-            return (result === null) ? null : result[1];
+        function parse(val) {
+            var result = "Not found",
+                    tmp = [];
+            location.search
+                    //.replace ( "?", "" )
+                    // this is better, there might be a question mark inside
+                    .substr(1)
+                    .split("&")
+                    .forEach(function (item) {
+                        tmp = item.split("=");
+                        if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+                    });
+            return result;
         }
-        console.log(getCookie("name"));
-        var name = getCookie("name");
-        var group = getCookie("group");
+        var name = parse('name');
+        var group = parse('group');
     </script>
 
 </head>
@@ -66,7 +74,7 @@
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8 text-center">
-                <h2>You have joined a game.</h2>
+                <h1 id="groupLine">You have joined a game.</h1>
                 <div id="play_info">
                     <h1 id="gameName" class="gameName">Welcome!</h1>
                     <!--
@@ -102,6 +110,7 @@
     //var name = "Sam";
     //var group = "Brumhack";
     document.getElementById("gameName").innerHTML = 'Player: ' + name;
+    document.getElementById("groupLine").innerHTML = 'You have joined : ' + group;
    // document.getElementById("gameGroup").innerHTML = 'Game: ' + group;
 </script>
 
@@ -113,16 +122,18 @@
 
     function registerPlayer(){
         console.log(name);
-        socket.emit('name', name);
+        socket.emit('name', name, group);
         //readyForLaunch();
     }
 
+    /**
     $('form').submit(function(){
         socket.emit('chat message', $('#m').val());
         socket.emit('chat message', group);
         $('#m').val('');
         return false;
     });
+    **/
 
     socket.on("connect", function () {
         console.log("Connected!");
@@ -153,9 +164,10 @@
 
     }
 
-    socket.on('start', function () {
-        console.log("Trump");
-        readyForLaunch();
+    socket.on('start', function (msg) {
+        if (msg == group) {
+            readyForLaunch();
+        }
     });
 
 
@@ -163,7 +175,7 @@
     function beenTouched(){
         document.getElementById("countdown").innerHTML = "You Lost #REKT!";
         inGame = false;
-        socket.emit('status', name);
+        socket.emit('status', name, group);
     }
 
     var x = 0;
@@ -191,8 +203,8 @@
 
 
                 if ((ax > 4) | (ay > 4) | (az < 7)) {
-                    socket.emit('chat message', (ax + ay + ay));
-                    socket.emit('chat message', (name + navigator.platform));
+                    //socket.emit('chat message', (ax + ay + ay));
+                    //socket.emit('chat message', (name + navigator.platform));
                     beenTouched();
                 }
 

@@ -15,21 +15,47 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
+        var group;
+/**
         function getCookie(name) {
             var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
             var result = regexp.exec(document.cookie);
             return (result === null) ? null : result[1];
         }
-        console.log(getCookie("name"));
-        var name = getCookie("name");
+        console.log(getCookie("pername1"));
+        //console.log(getCookie("pername2"));
+        //console.log(getCookie("nibble"));
+        group = getCookie("pergroup2");
+        //name = getCookie("name");
+
+console.log(group);
+ **/
+function parse(val) {
+    var result = "Not found",
+            tmp = [];
+    location.search
+            //.replace ( "?", "" )
+            // this is better, there might be a question mark inside
+            .substr(1)
+            .split("&")
+            .forEach(function (item) {
+                tmp = item.split("=");
+                if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+            });
+    return result;
+}
+
+        console.log(parse('group'));
+        group = parse('group');
 
         var currentPlayers = [];
         var currentState = [];
         var socket = io();
         window.onload = function(e){
+            socket.emit('launch', group);
         }
         function doFunction(){
-            socket.emit('launch', group);
+            socket.emit('startgame', group);
         }
     </script>
 </head>
@@ -75,10 +101,15 @@
 </div>
 
 <script>
-    document.getElementById("groupName").innerHTML = name;
-    socket.on('reload', function (players, playing) {
+    document.getElementById("groupName").innerHTML = group;
+    console.log("test");
+    socket.on('reload', function (players, playing, incGroup) {
+        console.log("test reload");
+        if (incGroup == group){
+            console.log("test if statement");
         currentPlayers = players;
         currentState = playing;
+            console.log(players.toString());
         console.log(currentPlayers.toString());
         console.log(currentState.toString());
 
@@ -98,6 +129,7 @@
         tableadd = tableadd+'</tbody></table>'
         table = table+tableadd;
         document.getElementById("table_div").innerHTML = table;
+        }
     });
 </script>
 </body>

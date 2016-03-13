@@ -2,8 +2,12 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var numberOfUsers = 0;
-var players = [];
-var playing = [];
+//var players = [];
+//var playing = [];
+
+var groups = [];
+
+var groupNames = [];
 var express = require('express');
 var group;
 var bodyParser = require('body-parser');
@@ -54,32 +58,62 @@ app.get('/about', function(req, res){
 
 
 io.on('connection', function(socket){
+    /**
     socket.on('chat message', function(msg){
         console.log('message: ' + msg);
     });
+    **/
+    /**
     socket.on('group', function(msg){
         console.log('group: ' + msg);
     });
-    socket.on('name', function(msg){
-        players.push(msg);
-        playing.push(1);
-        numberOfUsers++;
-        console.log('name: ' + msg);
-        io.emit('reload', players, playing, { for: 'everyone' });
+    **/
+    socket.on('name', function(msg, grp){
+        var arrayLength = groups.length;
+        console.log(arrayLength);
+        for (var i = 0; i < arrayLength; i++) {
+            if (groups[i].type == grp){
+                groups[i].players.push(msg);
+                groups[i].playing.push(1);
+                console.log("condition met");
+                io.emit('reload', groups[i].players, groups[i].playing, grp, { for: 'everyone' });
+            }
+        }
     });
-    socket.on('status', function(msg){
-        var player = players.indexOf(msg);
-        playing[player] = 0;
-        io.emit('reload', players, playing, { for: 'everyone' });
+    socket.on('status', function(msg, grp){
+        console.reload
+        var arrayLength = groups.length;
+        for (var i = 0; i < arrayLength; i++) {
+            if (groups[i].type == grp){
+                var index = groups[i].players.indexOf(msg);
+                groups[i].playing[index] = 0;
+                io.emit('reload', groups[i].players, groups[i].playing, grp, { for: 'everyone' });
+            }
+        }
+
     });
-    socket.on('launch', function(){
+    socket.on('launch', function(grp){
         console.log('Message from Host');
-        io.emit('start', { for: 'everyone' });
+        var newGroup = new Group(grp);
+        groups.push(newGroup);
+        console.log('arraypushed');
+    });
+    socket.on('startgame', function(grp){
+        io.emit('start', grp, { for: 'everyone' });
     });
 });
 
 http.listen(3000, function(){
     console.log('listening on *:3000');
 });
+
+function Group (type) {
+    this.type = type;
+    this.players = [];
+    this.playing = [];
+    this.testing = "call trace stack from object";
+}
+
+
 
 
